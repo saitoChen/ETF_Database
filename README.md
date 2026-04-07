@@ -1,3 +1,8 @@
+<!--
+ * @Author: chenjianfeng chenjianfeng93@163.com
+ * @Date: 2026-04-06 22:42:03
+ * @Description: 
+-->
 # ETF 数据库项目
 
 这是一个ETF基金份额数据爬虫和可视化项目。
@@ -90,3 +95,10 @@ CREATE TABLE etf_data (
     UNIQUE(stat_date, sec_code)
 )
 ```
+
+## 项目相关命令
+
+pm2 status 查看应用状态
+pm2 logs etf-database 查看日志
+pm2 restart etf-database 重启应用
+pm2update_data.sh 更新数据

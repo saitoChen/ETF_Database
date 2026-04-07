@@ -105,6 +105,7 @@ fi
 print_step "8/10 配置 Next.js 项目"
 cd "$PROJECT_DIR/etf-database"
 npm install
+npm install --save-dev @types/better-sqlite3
 if [ ! -f "etf_data.db" ]; then
     cp ../etf_data.db .
 fi
