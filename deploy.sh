@@ -1,18 +1,18 @@
 #!/bin/bash
 
 # ETF 项目一键部署脚本 (Ubuntu)
-# 使用方法: ./deploy.sh your_username
+# 使用方法: ./deploy.sh
 
 set -e
 
-if [ "$#" -ne 1 ]; then
-    echo "使用方法: $0 <你的用户名>"
-    echo "例如: $0 ubuntu"
+if [ "$#" -ne 0 ]; then
+    echo "使用方法: $0"
+    echo "例如: ./deploy.sh"
     exit 1
 fi
 
-USERNAME=$1
-PROJECT_DIR="~/project/ETF_Database"
+USERNAME="root"
+PROJECT_DIR="/root/project/ETF_Database"
 
 echo "=========================================="
 echo "ETF 项目一键部署"
@@ -37,12 +37,6 @@ print_success() {
 print_error() {
     echo -e "${RED}✗ $1${NC}"
 }
-
-# 检查是否为root用户
-# if [ "$EUID" -eq 0 ]; then 
-#     print_error "请不要用root用户运行此脚本，请使用普通用户"
-#     exit 1
-# fi
 
 # 1. 更新系统
 print_step "1/10 更新系统软件包"
@@ -81,7 +75,7 @@ print_step "5/10 检查项目文件"
 if [ ! -d "$PROJECT_DIR" ]; then
     print_error "项目目录不存在: $PROJECT_DIR"
     echo "请先将项目文件上传到服务器"
-    echo "可以使用: scp -r /本地/ETF_Database $USERNAME@服务器IP:~/"
+    echo "可以使用: scp -r /本地/ETF_Database root@服务器IP:/root/project/"
     exit 1
 fi
 print_success "项目目录存在"
@@ -151,7 +145,7 @@ EOF
 pm2 delete etf-database 2>/dev/null || true
 pm2 start ecosystem.config.js
 pm2 save
-pm2 startup systemd -u $USERNAME --hp /home/$USERNAME || true
+pm2 startup systemd -u root --hp /root || true
 print_success "PM2 配置完成"
 
 echo ""
@@ -164,7 +158,7 @@ echo ""
 echo "1. 编辑 crontab:"
 echo "   crontab -e"
 echo ""
-echo "2. 添加以下行（注意修改路径）："
+echo "2. 添加以下行："
 echo "   0 20 * * * cd $PROJECT_DIR && $PROJECT_DIR/venv/bin/python3 $PROJECT_DIR/etf_spider.py today >> $PROJECT_DIR/cron.log 2>&1"
 echo ""
 echo "常用命令："
@@ -172,5 +166,5 @@ echo "  pm2 status              - 查看应用状态"
 echo "  pm2 logs etf-database - 查看日志"
 echo "  pm2 restart etf-database - 重启应用"
 echo ""
-echo "访问地址：http://\$(curl -s ifconfig.me):3000"
+echo "访问地址：http://$(curl -s ifconfig.me):3000"
 echo ""
