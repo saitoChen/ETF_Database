@@ -39,10 +39,10 @@ print_error() {
 }
 
 # 检查是否为root用户
-if [ "$EUID" -eq 0 ]; then 
-    print_error "请不要用root用户运行此脚本，请使用普通用户"
-    exit 1
-fi
+# if [ "$EUID" -eq 0 ]; then 
+#     print_error "请不要用root用户运行此脚本，请使用普通用户"
+#     exit 1
+# fi
 
 # 1. 更新系统
 print_step "1/10 更新系统软件包"
