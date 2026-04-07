@@ -12,7 +12,7 @@ if [ "$#" -ne 1 ]; then
 fi
 
 USERNAME=$1
-PROJECT_DIR="/home/$USERNAME/ETF_Database"
+PROJECT_DIR="~/project/ETF_Database"
 
 echo "=========================================="
 echo "ETF 项目一键部署"
