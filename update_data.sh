@@ -28,16 +28,21 @@ print_success() {
     echo -e "${GREEN}✓ $1${NC}"
 }
 
-# 1. 爬取今天的数据
-print_step "步骤1/3: 爬取最新数据"
+# 1. 爬取历史数据（补全缺失数据）
+print_step "步骤1/3: 爬取历史数据"
 if [ -d "venv" ]; then
     source venv/bin/activate
 fi
-python3 etf_spider.py today
-print_success "数据爬取完成"
+python3 etf_spider.py historical
+print_success "历史数据爬取完成"
 
-# 2. 复制数据库到 Next.js 目录
-print_step "步骤2/3: 同步数据库"
+# 2. 爬取今天的数据
+print_step "步骤2/4: 爬取最新数据"
+python3 etf_spider.py today
+print_success "最新数据爬取完成"
+
+# 3. 复制数据库到 Next.js 目录
+print_step "步骤3/4: 同步数据库"
 if [ -d "etf-database" ]; then
     cp etf_data.db etf-database/
     print_success "数据库同步完成"
@@ -45,8 +50,8 @@ else
     echo "警告: etf-database 目录不存在"
 fi
 
-# 3. 重启应用（如果 PM2 正在运行）
-print_step "步骤3/3: 重启应用"
+# 4. 重启应用（如果 PM2 正在运行）
+print_step "步骤4/4: 重启应用"
 if command -v pm2 &> /dev/null; then
     cd etf-database 2>/dev/null || true
     if pm2 list | grep -q "etf-database"; then
