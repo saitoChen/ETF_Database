@@ -136,7 +136,7 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 p-8">
       <div className="max-w-7xl mx-auto">
-        <h1 className="text-4xl font-bold text-gray-800 mb-2">ETF 份额趋势图</h1>
+        <h1 className="text-4xl font-bold text-gray-800 mb-2">和汪汪队跳舞</h1>
         <p className="text-gray-600 mb-8">跟踪ETF总份额变化趋势</p>
 
         <div className="bg-white rounded-xl shadow-lg p-6 mb-6">

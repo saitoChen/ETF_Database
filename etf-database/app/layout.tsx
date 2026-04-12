@@ -1,3 +1,8 @@
+/*
+ * @Author: chenjianfeng chenjianfeng93@163.com
+ * @Date: 2026-04-06 22:33:59
+ * @Description: 
+ */
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
@@ -13,8 +18,11 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "ETF_DATABASE",
+  title: "和汪汪队跳舞",
   description: "ETF基金份额数据可视化",
+  icons: {
+    icon: "/favicon.svg",
+  },
 };
 
 export default function RootLayout({
